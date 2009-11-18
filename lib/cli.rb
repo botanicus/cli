@@ -7,8 +7,8 @@ module CLI
   # TODO: yes?("You're fine?", default: true)
   def yes?(question)
     print "#{question} [Y/n] "
-    values = {"y" => true, "n" => false}
-    values.default = "y"
+    values = {"y" => true, "yes" => true, "n" => false, "no" => false}
+    values.default = true
     input  = STDIN.readline.chomp.downcase
     values[input]
   end
