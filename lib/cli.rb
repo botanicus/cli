@@ -14,7 +14,7 @@ module CLI
   end
 
   def ask(question, options = Hash.new)
-    print "#{question} [default: #{options[:default]}]"
+    puts "#{question} [default: #{options[:default]}]"
     reply = STDIN.readline.chomp
     if reply.empty?
       options[:default]
