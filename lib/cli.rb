@@ -5,7 +5,7 @@ module CLI
   VERSION ||= "0.0.1"
   extend self
   # TODO: yes?("You're fine?", default: true)
-  def yes?(question)
+  def yes?(question, options = Hash.new)
     print "#{question} [Y/n] "
     values = {"y" => true, "yes" => true, "n" => false, "no" => false}
     values.default = true
@@ -13,9 +13,14 @@ module CLI
     values[input]
   end
 
-  def ask(question)
-    print "#{question} "
-    STDIN.readline.chomp
+  def ask(question, options = Hash.new)
+    print "#{question} [default: #{options[:default]}]"
+    reply = STDIN.readline.chomp
+    if reply.empty?
+      options[:default]
+    else
+      reply
+    end
   end
 end
 
