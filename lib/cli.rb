@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 module CLI
-  VERSION ||= "0.0.1"
+  VERSION ||= "0.0.1.1"
   extend self
   # TODO: yes?("You're fine?", default: true)
   def yes?(question, options = Hash.new)
