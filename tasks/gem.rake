@@ -12,7 +12,7 @@ namespace :build do
     content = File.read(gemspec)
     prename = "#{gemspec.split(".").first}.pre.gemspec"
     # 0.1.1 => 0.2
-    version = CLI::VERSION.sub(/^(\d+)\.(\d+\.){2}.*$/) { "#$1.#{$2.to_i + 1}" }
+    version = CLI::VERSION.sub(/^(\d+)\.(\d+).*$/) { "#$1.#{$2.to_i + 1}" }
     puts "Current #{CLI::VERSION} => #{version} pre"
     File.open(prename, "w") do |file|
       file.puts(content.gsub(/(\w+::VERSION)/, "'#{version}.pre'"))
