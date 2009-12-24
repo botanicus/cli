@@ -22,13 +22,6 @@ Gem::Specification.new do |s|
   # Ruby version
   s.required_ruby_version = ::Gem::Requirement.new("~> 1.9")
 
-  # runtime dependencies
-  s.add_dependency "rubyexts"
-
-  # development dependencies
-  # use gem install rango --development if you want to install them
-  s.add_development_dependency "rspec"
-
   # RubyForge
   # s.rubyforge_project = "cli"
 end
