@@ -13,10 +13,15 @@ require "nake/tasks/gem"
 require "nake/tasks/spec"
 require "nake/tasks/release"
 
-load "code-cleaner.nake"
-
-unless File.exist?(".git/hooks/pre-commit")
-  warn "If you want to contribute to Cli, please run ./tasks.rb hooks:whitespace:install to get Git pre-commit hook for removing trailing whitespace"
+begin
+  load "code-cleaner.nake"
+  Nake::Task["hooks:whitespace:install"].tap do |task|
+    task.config[:path] = "script"
+    task.config[:encoding] = "utf-8"
+    task.config[:whitelist] = '(bin/[^/]+|.+\.(rb|rake|nake|thor|task))$'
+  end
+rescue LoadError
+  warn "If you want to contribute to Cli, please install code-cleaner and then run ./tasks.rb hooks:whitespace:install to get Git pre-commit hook for removing trailing whitespace."
 end
 
 require_relative "lib/cli"
@@ -30,9 +35,3 @@ Task[:build].config[:gemspec] = "cli.gemspec"
 Task[:prerelease].config[:gemspec] = "cli.pre.gemspec"
 Task[:release].config[:name] = "cli"
 Task[:release].config[:version] = Cli::VERSION
-
-Nake::Task["hooks:whitespace:install"].tap do |task|
-  task.config[:path] = "script"
-  task.config[:encoding] = "utf-8"
-  task.config[:whitelist] = '(bin/[^/]+|.+\.(rb|rake|nake|thor|task))$'
-end
